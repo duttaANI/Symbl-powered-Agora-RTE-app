@@ -20,11 +20,12 @@ import Logo from '../subComponents/Logo';
 import OpenInNativeButton from '../subComponents/OpenInNativeButton';
 import ColorContext from '../components/ColorContext';
 import { useHistory } from './Router';
+import { UserrIdToUSernameMappring } from '../../bridge/rtc/web/UserrIdToUSername';
 
 const Precall = (props: any) => {
   const history = useHistory();
   const { primaryColor } = useContext(ColorContext);
-  const { setCallActive, queryComplete, username, setUsername, error } = props;
+  const { setCallActive, queryComplete, username, setUsername, error , screenShareUid} = props;
   const [dim, setDim] = useState([
     Dimensions.get('window').width,
     Dimensions.get('window').height,
@@ -154,7 +155,8 @@ const Precall = (props: any) => {
                   value={username}
                   onChangeText={(text) => {
                     if (username !== 'Getting name...') {
-                      setUsername(text);
+                      setUsername(text); // THIS DECIDE USERNAME
+                      new UserrIdToUSernameMappring().setUserMap(screenShareUid,text);
                     }
                   }}
                   onSubmitEditing={() => {}}

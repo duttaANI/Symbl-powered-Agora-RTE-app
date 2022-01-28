@@ -27,6 +27,8 @@ import type { RtcEngineEvents, Subscription } from 'react-native-agora/lib/RtcEv
 //     [uid: number]: AgoraRTC.Stream;
 // }
 
+import { UserrIdToUSernameMappring } from './UserrIdToUSername';
+
 type callbackType = (uid?: number) => void;
 
 declare global {
@@ -306,6 +308,9 @@ export default class RtcEngine {
     }
     async startScreenshare(token: string, channelName: string, optionalInfo: string, optionalUid: number, appId: string, engine: AgoraRTC, encryption: {screenKey: string; mode: 'aes-128-xts' | 'aes-256-xts' | 'aes-128-ecb'}): Promise<void> {
         if (!this.inScreenshare) {
+            const userName = await new UserrIdToUSernameMappring().getUserMap(
+                optionalUid,
+              );
             let init = new Promise(((resolve, reject) => {
                 engine.screenClient.init(appId, function () {
                     resolve();

@@ -1,8 +1,6 @@
 package models
 
 import (
-	"os"
-
 	"github.com/jinzhu/gorm"
 
 	// Importing postgres driver
@@ -16,7 +14,9 @@ type Database struct {
 
 // CreateDB is used to initialize a new database connection
 func CreateDB(dbURL string) (*Database, error) {
-	db, err := gorm.Open("postgres", os.Getenv("PG_DB_DETAILS"))
+	// db, err := gorm.Open("postgres","postgres://<user>:<password>@<host>/<db_name>?sslmode=disable")
+	// db, err := gorm.Open("postgres", "postgres://myprojectuser:password@aniruddha-G3-3579/postgres?sslmode=disable")
+	db, err := gorm.Open("postgres", "postgres://postgres:password@localhost/postgres?sslmode=disable")
 	if err != nil {
 		return nil, err
 	}

@@ -19,7 +19,8 @@ import StorageContext from '../components/StorageContext';
 import Logo from '../subComponents/Logo';
 import SymblTranscript from '../subComponents/SymblTranscript';
 import SymblTopictooltip from '../subComponents/SymblTopicTooltip';
-import { getInterTranscript } from '../../bridge/rtc/web/SendStream';
+
+import { UserrIdToUSernameMappring } from '../../bridge/rtc/web/UserrIdToUSername';
 import SymblTopics from '../subComponents/SymblTopics';
 import SymblTopicTagCloud from '../components/SymblTopicCloud/SymblTopicTagCloud';
 
@@ -174,15 +175,18 @@ const VideoCall: React.FC = () => {
     title = data.joinChannel.title;
     console.log('query done: ', data, queryComplete);
     if (username === 'Getting name...') {
-      if (data.getUser) {
-        setUsername(data.getUser.name);
+      // if (data.getUser) {
 
-        ///mapping ui to uname
-        //let new UserrIdToUSernameMappring().setUserMap(data.getUser.uid,data.getUser.uname);
-      } else {
-        setUsername('');
-      }
+      //   // setUsername(data.getUser.name);
+      //   // setUsername('BABA');
+      //   ///mapping ui to uname
+      //   // new UserrIdToUSernameMappring().setUserMap(data.joinChannel.screenShare.uid,data.getUser.uname);
+      // } else {
+      //   setUsername('');
+      // }
+      setUsername('');
     }
+    
     console.log('token:', rtcProps.token);
     queryComplete ? {} : setQueryComplete(true);
   }
@@ -209,7 +213,7 @@ const VideoCall: React.FC = () => {
               <DeviceConfigure>
                 <RtmConfigure
                   setRecordingActive={setRecordingActive}
-                  name={username}
+                  name={username} // THIS SETS USERNAME
                   callActive={callActive}
                 >
                   {callActive ? (
@@ -288,6 +292,7 @@ const VideoCall: React.FC = () => {
                       setUsername={setUsername}
                       setCallActive={setCallActive}
                       queryComplete={queryComplete}
+                      screenShareUid ={data.joinChannel.screenShare.uid}
                     />
                   ) : (
                     <></>
